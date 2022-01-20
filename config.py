@@ -17,7 +17,7 @@ SECRET_KEY = data.get('SECRET_KEY', 'secret_key')
 LOG_FILE = data.get('LOG_FILE', 'tmp/output.log')
 
 SQLALCHEMY_DATABASE_URI = data.get('SQLALCHEMY_DATABASE_URI',
-        'sqlite:///' + os.path.join(ROOT_PATH, 'app.db'))
+                                   'sqlite:///' + os.path.join(ROOT_PATH, 'app.db'))
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 
