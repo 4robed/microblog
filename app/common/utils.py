@@ -20,6 +20,7 @@ class SetLog():
             '%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'))
         file_handler.setLevel(logging.INFO)
         self.log.addHandler(file_handler)
+        self.log.info('Microblog startup')
 
     def mail_log(self):
         if SMTP.host:
