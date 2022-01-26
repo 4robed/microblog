@@ -1,10 +1,10 @@
+from datetime import datetime
 from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
 from flask import render_template, flash, redirect, url_for, request
 from app.models import User, Post
 from app.forms import LoginForm, RegistrationForm, EditProfileForm
 from app import app, db
-from datetime import datetime
 
 
 @app.route('/')
@@ -12,7 +12,6 @@ from datetime import datetime
 @login_required
 def index():
     user = {'username': 'Hungnd'}
-    user = {'username': 'Miguel'}
     posts = [
         {
             'author': {'username': 'John'},
@@ -97,3 +96,4 @@ def edit_profile():
         form.username.data = current_user.username
         form.about_me.data = current_user.about_me
     return render_template('edit_profile.html', title='Edit Profile', form=form)
+
