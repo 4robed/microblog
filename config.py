@@ -27,6 +27,8 @@ SMTP = data.get('SMTP', dict(
     port=''
 ))
 
+POSTS_PER_PAGE = 3
+
 
 class SMTP():
     app_name = SMTP['app_name']
