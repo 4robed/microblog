@@ -20,9 +20,13 @@ MarkupSafe = "==2.0.1"
 PyYAML = "==6.0"
 SQLAlchemy = "==1.4.30"
 Werkzeug = "==2.0.2"
-WTForms = "==3.0.1"
+WTForms = "==2.2.1"
 zipp = "==3.7.0"
 flask-login = "*"
+flask-mail = "*"
+pyjwt = "*"
+email-validator = "*"
+flask-bootstrap = "*"
 
 [dev-packages]
 
