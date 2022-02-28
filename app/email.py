@@ -4,6 +4,7 @@ from email.mime.text import MIMEText
 from flask import render_template
 from app import mail, app
 from config import SMTP
+from flask_babel import _
 from threading import Thread
 from app import log
 
@@ -38,7 +39,7 @@ def send_email(subject, sender, recipient, text_body, html_body):
 
 def send_password_reset_email(user):
     token = user.get_reset_password_token()
-    send_email(subject='Reset your password',
+    send_email(subject=_('[MicroBlog] Reset your password'),
                sender=SMTP.email,
                recipient=user.email,
                text_body=render_template('email/reset_password.txt',

@@ -29,6 +29,8 @@ SMTP = data.get('SMTP', dict(
 
 POSTS_PER_PAGE = 3
 
+LANGUAGES = ['en', 'vi']
+
 
 class SMTP():
     app_name = SMTP['app_name']
