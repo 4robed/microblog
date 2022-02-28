@@ -27,6 +27,7 @@ flask-mail = "*"
 pyjwt = "*"
 email-validator = "*"
 flask-bootstrap = "*"
+flask-moment = "*"
 
 [dev-packages]
 
