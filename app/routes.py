@@ -4,6 +4,7 @@ from werkzeug.urls import url_parse
 from flask import render_template, flash, redirect, url_for, request, g
 from app.models import User, Post
 from flask_babel import _, get_locale
+from langdetect import detect, LangDetectException
 from app.forms import (LoginForm,
                        RegistrationForm,
                        EditProfileForm,
@@ -21,7 +22,11 @@ from app import app, db
 def index():
     form = PostForm()
     if form.validate_on_submit():
-        post = Post(body=form.post.data, author=current_user)
+        try:
+            language = detect(form.post.data)
+        except LangDetectException:
+            language = ''
+        post = Post(body=form.post.data, author=current_user, language=language)
         db.session.add(post)
         db.session.commit()
         flash(_('Your post is now live!'))
