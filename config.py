@@ -31,6 +31,8 @@ POSTS_PER_PAGE = 3
 
 LANGUAGES = ['en', 'vi']
 
+MS_TRANSLATOR_KEY = data.get('MS_TRANSLATOR_KEY')
+
 
 class SMTP():
     app_name = SMTP['app_name']

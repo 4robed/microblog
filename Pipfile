@@ -29,6 +29,8 @@ email-validator = "*"
 flask-bootstrap = "*"
 flask-moment = "*"
 flask-babel = "*"
+langdetect = "*"
+requests = "*"
 
 [dev-packages]
 
