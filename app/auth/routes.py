@@ -5,14 +5,14 @@ from flask import render_template, flash, redirect, url_for, request, g
 from app.models import User, Post
 from flask_babel import _, get_locale
 from langdetect import detect, LangDetectException
-from app.forms import (LoginForm,
-                       RegistrationForm,
-                       EditProfileForm,
-                       PostForm,
-                       EmptyForm,
-                       ResetPasswordRequestForm,
-                       ResetPasswordForm)
-from app.email import send_password_reset_email
+from app.auth.forms import (LoginForm,
+                            RegistrationForm,
+                            EditProfileForm,
+                            PostForm,
+                            EmptyForm,
+                            ResetPasswordRequestForm,
+                            ResetPasswordForm)
+from app.auth.email import send_password_reset_email
 from app import app, db
 
 
@@ -58,7 +58,7 @@ def login():
         if not next_page or url_parse(next_page).netloc != '':
             next_page = url_for('index')
         return redirect(next_page)
-    return render_template('login.html', title='Sign-In', form=form)
+    return render_template('auth/login.html', title='Sign-In', form=form)
 
 
 @app.route('/logout')
@@ -79,7 +79,7 @@ def register():
         db.session.commit()
         flash(_('Congratulations, you are now a registered user!'))
         return redirect(url_for('login'))
-    return render_template('register.html', title='Register', form=form)
+    return render_template('auth/register.html', title='Register', form=form)
 
 
 @app.route('/user/<username>')
@@ -146,7 +146,7 @@ def reset_password_request():
             send_password_reset_email(user)
         flash(_('Check your email for the instructions to reset your password.'))
         return redirect(url_for('login'))
-    return render_template('reset_password_request.html',
+    return render_template('auth/reset_password_request.html',
                            title='Reset Password', form=form)
 
 
@@ -163,4 +163,4 @@ def reset_password(token):
         db.session.commit()
         flash(_('Your password has been reset.'))
         return redirect(url_for('login'))
-    return render_template('reset_password.html', form=form)
+    return render_template('auth/reset_password.html', form=form)

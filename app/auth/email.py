@@ -1,12 +1,10 @@
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-from flask import render_template
-from app import mail, app
+from flask import render_template, current_app
 from config import SMTP
 from flask_babel import _
 from threading import Thread
-from app import log
 
 
 def send_async_email(app, msg, recipients):
@@ -23,7 +21,7 @@ def send_async_email(app, msg, recipients):
                 msg=msg.as_string()
             )
         except Exception as e:
-            log.info('Cant send reset password mail, user: %s, cause: %s'
+            print('Cant send reset password mail, user: %s, cause: %s'
                      % (recipients, str(e)))
 
 
@@ -34,7 +32,7 @@ def send_email(subject, sender, recipient, text_body, html_body):
     msg['Subject'] = subject
     msg['From'] = sender
     msg['To'] = recipient
-    Thread(target=send_async_email, args=(app, msg, recipient)).start()
+    Thread(target=send_async_email, args=(current_app._get_current_object(), msg, recipient)).start()
 
 
 def send_password_reset_email(user):
