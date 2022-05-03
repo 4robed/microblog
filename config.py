@@ -40,3 +40,16 @@ class SMTP():
     password = SMTP['password']
     host = SMTP['host']
     port = SMTP['port']
+
+
+ELASTIC_SEARCH = data.get('ELASTIC_SEARCH', dict(
+    host='',
+    username='',
+    password=''
+))
+
+
+class ELASTIC_SEARCH():
+    host = ELASTIC_SEARCH['host']
+    username = ELASTIC_SEARCH['username']
+    password = ELASTIC_SEARCH['password']

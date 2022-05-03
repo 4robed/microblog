@@ -1,14 +1,18 @@
-from flask import Flask, request, current_app
-from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate
-from flask_login import LoginManager
-from app.common.utils import SetLog
-from flask_mail import Mail
-from flask_bootstrap import Bootstrap
-from flask_moment import Moment
+import urllib3
+from flask import Flask
 from flask_babel import Babel, lazy_gettext as _l
-import config
+from flask_bootstrap import Bootstrap
+from flask_login import LoginManager
+from flask_mail import Mail
+from flask_migrate import Migrate
+from flask_moment import Moment
+from flask_sqlalchemy import SQLAlchemy
+from elasticsearch import Elasticsearch
 
+import config
+from app.common.utils import SetLog
+
+urllib3.disable_warnings()
 db = SQLAlchemy()
 migrate = Migrate()
 login = LoginManager()
@@ -31,7 +35,12 @@ def create_app(config_class=config):
     bootstrap.init_app(app)
     moment.init_app(app)
     babel.init_app(app)
-
+    app.elasticsearch = Elasticsearch(config_class.ELASTIC_SEARCH.host,
+                                      http_auth=(config_class.ELASTIC_SEARCH.username,
+                                                 config_class.ELASTIC_SEARCH.password),
+                                      use_ssl=True,
+                                      verify_certs=False)
+    print(app.elasticsearch.info())
     from app.errors import bp as errors_bp
     app.register_blueprint(errors_bp)
 
